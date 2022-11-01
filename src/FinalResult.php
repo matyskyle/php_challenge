@@ -1,7 +1,9 @@
 <?php
 class FinalResult {
     function results($final) {
+        // if using /r in file in rare cases
         ini_set('auto_detect_line_endings',TRUE);
+        // Open CSV file
         $document = fopen($final, "r");
         $document_data = fgetcsv($document);
         $records_data = [];
@@ -11,7 +13,10 @@ class FinalResult {
             $records_data[] = $this->documentArrayCreation($document_data, $record_array);
         }
         $records_data = array_filter($records_data);
+
         ini_set('auto_detect_line_endings',FALSE);
+
+        // Close CSV file
         fclose($document);
         return [
             "filename" => basename($final),
